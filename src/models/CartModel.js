@@ -54,5 +54,7 @@ class CartModel {
             });
         });
     }
+
+    
 }
 export default new CartModel();

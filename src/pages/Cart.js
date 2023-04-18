@@ -21,6 +21,35 @@ function Cart(props) {
       updatedProducts[key].quantity = parseInt(e.target.value);
       setProducts(updatedProducts);
     };
+
+    const handleRemove = async (id) => {
+      try {
+        // Call the API to delete the product
+        const response = await fetch(`http://127.0.0.1:8000/api/remove_cart${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    
+        // Check if the response is successful
+        if (response.ok) {
+          // Remove the product from the state
+          const updatedProducts = products.filter(product => product.id !== id);
+          setProducts(updatedProducts);
+          // Display a success message or perform any other necessary actions
+          console.log('Product removed successfully');
+        } else {
+          // Display an error message or perform any other necessary actions
+          console.error('Failed to remove product');
+        }
+      } catch (err) {
+        // Handle any errors that may occur during the API call
+        console.error(err);
+      }
+    };
+  
+   
   return (
     <LayoutMaster>
       
@@ -71,12 +100,14 @@ function Cart(props) {
                               value={product.quantity}
                               onChange={(e) => handleQty(e, key)}
                             />
+                            <a href="" className="product-remove mt-2" onClick={() => handleRemove(product.id)}>Remove</a>
                            </td>
                            <td className="cart-item-price text-end">
-                             <div className="product-price">{product.price}</div>
+                             <div className="product-price">{product.price.toLocaleString('vi-VN')} đ</div>
                            </td>
                            <td className="cart-item-price text-end">
-                             <div className="product-price">{product.price * product.quantity }</div>
+                           <div className="product-price">{(product.price * product.quantity).toLocaleString()} đ</div>
+
                            </td>
                          </tr>
                        
