@@ -5,6 +5,7 @@ import CartModel from "../models/CartModel";
 function Cart(props) {
   const image = "http://127.0.0.1:8000/uploads/product/";
   const [products, setProducts] = useState([]);
+  
       useEffect(() => {
         CartModel.getAll()
             .then((res) => {
@@ -15,7 +16,11 @@ function Cart(props) {
                 throw err;
             });
     }, []);
-
+    const handleQty = (e, key) => {
+      const updatedProducts = [...products];
+      updatedProducts[key].quantity = parseInt(e.target.value);
+      setProducts(updatedProducts);
+    };
   return (
     <LayoutMaster>
       
@@ -33,8 +38,12 @@ function Cart(props) {
                           <th className="cart-caption text-center heading_18 d-none d-md-table-cell">
                             Quantity
                           </th>
+                         
                           <th className="cart-caption text-end heading_18">
                             Price
+                          </th>
+                          <th className="cart-caption text-center heading_18 d-none d-md-table-cell">
+                            Total
                           </th>
                         </tr>
                       </thead>
@@ -56,27 +65,18 @@ function Cart(props) {
                              </h2>
                            </td>
                            <td className="cart-item-quantity">
-                             <div className="quantity d-flex align-items-center justify-content-between">
-                               <button className="qty-btn dec-qty">
-                                 <img src="img/icon/minus.svg" alt="minus" />
-                               </button>
-                               <input
-                                 className="qty-input"
-                                 type="number"
-                                 name="qty"
-                                 defaultValue={1}
-                                 min={0}
-                               />
-                               <button className="qty-btn inc-qty">
-                                 <img src="img/icon/plus.svg" alt="plus" />
-                               </button>
-                             </div>
-                             <a href="#" className="product-remove mt-2">
-                               Remove
-                             </a>
+                           <input
+                              className="form-control text-center me-3"
+                              type="number"
+                              value={product.quantity}
+                              onChange={(e) => handleQty(e, key)}
+                            />
                            </td>
                            <td className="cart-item-price text-end">
                              <div className="product-price">{product.price}</div>
+                           </td>
+                           <td className="cart-item-price text-end">
+                             <div className="product-price">{product.price * product.quantity }</div>
                            </td>
                          </tr>
                        
