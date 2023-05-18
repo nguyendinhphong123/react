@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_CART } from '../redux/action';
+import Swal from "sweetalert2";
+import CartModel from "../models/CartModel";
 
 
 
@@ -15,9 +17,7 @@ function SanPhamShow(props) {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [qty,setQty] = useState(1);
-  const carts = useSelector( state => state.cart )
-  const formattedPrice =
-    product?.price?.toLocaleString("vi-VN") || "Price not available";
+  const formattedPrice = product?.price?.toLocaleString("vi-VN") || "Price not available";
 
  
   useEffect(() => {
@@ -33,32 +33,19 @@ function SanPhamShow(props) {
   const handleAddToCart = () => {
     const cart = {
       id: id,
-      name: product.name,
-      price: product.price,
-      qty: qty
     };
-
-    // Thực hiện yêu cầu POST đến đường dẫn API
-    fetch("http://127.0.0.1:8000/api/add_to_cart/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(cart),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Xử lý phản hồi thành công
-        console.log(data); // Ví dụ: { message: 'Sản phẩm đã được thêm vào giỏ hàng thành công!' }
-        // Dispatch hành động Redux để cập nhật trạng thái giỏ hàng
-        dispatch({ type: SET_CART, payload: [...carts, cart] });
-        // Điều hướng đến trang giỏ hàng
-        navigate("/cart");
-      })
-      .catch((error) => {
-        // Xử lý phản hồi lỗi
-        console.error(error);
-      });
+    CartModel.add_to_cart(cart)
+    .then((res) => {
+      navigate("/cart");
+      handleAddSuccess();
+    });
+  };
+  const handleAddSuccess = () => {
+    Swal.fire({
+      icon: 'success',
+      title: 'Thêm thành công',
+      text: 'Dữ liệu đã được lưu.',
+    });
   };
 
 
@@ -243,13 +230,11 @@ function SanPhamShow(props) {
                   </div>
                   <form className="product-form" action="#">
                     <div className="product-form-buttons d-flex align-items-center justify-content-between mt-4">
-                      <button
-                        onClick={ handleAddToCart }
-                        type="submit"
-                        className="position-relative btn-atc btn-add-to-cart loader"
-                      >
-                        ADD TO CART
-                      </button>
+                    
+                      <button onClick={ handleAddToCart } className="position-relative btn-atc btn-add-to-cart loader" type="button">
+                            <i className="bi-cart-fill me-1"></i>
+                            Add to cart
+                        </button>
                       <a href="wishlist.html" className="product-wishlist">
                         <svg
                           className="icon icon-wishlist"

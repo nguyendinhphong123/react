@@ -15,6 +15,8 @@ function Shop(props) {
                 throw err;
             });
     }, []);
+    const totalProducts = products.length;
+
   return (
     <LayoutMatser>
       <div className="collection mt-100">
@@ -25,10 +27,10 @@ function Shop(props) {
               <div className="filter-sort-wrapper d-flex justify-content-between flex-wrap">
                 <div className="collection-title-wrap d-flex align-items-end">
                   <h2 className="collection-title heading_24 mb-0">
-                    All products
+                    Tất cả sản phẩm
                   </h2>
                   <p className="collection-counter text_16 mb-0 ms-2">
-                    (237 items)
+                    ({totalProducts})
                   </p>
                 </div>
                
@@ -113,26 +115,7 @@ function Shop(props) {
                            </div>
                          </div>
                          <div className="product-card-details">
-                           <ul className="color-lists list-unstyled d-flex align-items-center">
-                             <li>
-                               <a
-                                 href="javascript:void(0)"
-                                 className="color-swatch swatch-black active"
-                               />
-                             </li>
-                             <li>
-                               <a
-                                 href="javascript:void(0)"
-                                 className="color-swatch swatch-cyan"
-                               />
-                             </li>
-                             <li>
-                               <a
-                                 href="javascript:void(0)"
-                                 className="color-swatch swatch-purple"
-                               />
-                             </li>
-                           </ul>
+                          
                            <h3 className="product-card-title">
                              <a href="collection-left-sidebar.html">
                                {product.name}

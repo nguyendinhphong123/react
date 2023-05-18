@@ -20,7 +20,7 @@ class CartModel {
     add_to_cart(data){
         return new Promise( (resolve, reject) => {
             axios
-            .post(this.api_url,data )
+            .post(this.api_url+'/add_to_cart',data )
             .then(res => {
                 resolve(res.data);
             })
@@ -45,7 +45,7 @@ class CartModel {
     remove(id){
         return new Promise( (resolve, reject) => {
             axios
-            .delete(this.api_url+'/'+id)
+            .delete(this.api_url+'/'+'remove_cart/'+id)
             .then(res => {
                 resolve(res.data);
             })

@@ -4042,3 +4042,6 @@ blockquote {
     text-align: center;
     color: red;
   }
+div.empty-cart{
+  color: red;
+};

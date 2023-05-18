@@ -70,7 +70,7 @@ function Header(props) {
                           <li className="menu-list-item nav-item-sub">
                             <a
                               className="nav-link-sub nav-text-sub"
-                              href="login.html"
+                              href="/login"
                             >
                               Login
                             </a>
@@ -78,7 +78,7 @@ function Header(props) {
                           <li className="menu-list-item nav-item-sub">
                             <a
                               className="nav-link-sub nav-text-sub"
-                              href="register.html"
+                              href="/register"
                             >
                               Register
                             </a>
@@ -87,7 +87,7 @@ function Header(props) {
                           <li className="menu-list-item nav-item-sub">
                             <a
                               className="nav-link-sub nav-text-sub"
-                              href="cart.html"
+                              href="/cart"
                             >
                               Cart
                             </a>
@@ -95,7 +95,7 @@ function Header(props) {
                           <li className="menu-list-item nav-item-sub">
                             <a
                               className="nav-link-sub nav-text-sub"
-                              href="checkout.html"
+                              href="/checkout"
                             >
                               Checkout
                             </a>
